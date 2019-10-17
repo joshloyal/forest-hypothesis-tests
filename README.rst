@@ -1,18 +1,6 @@
 .. -*- mode: rst -*-
 
-|Travis|_ |AppVeyor|_ |Coveralls|_ |CircleCI|_ |License|_
-
-.. |Travis| image:: https://travis-ci.org/joshloyal/forest-hypothesis-tests.svg?branch=master
-.. _Travis: https://travis-ci.org/joshloyal/cookiecutter.project_slug}}
-
-.. |AppVeyor| image:: https://ci.appveyor.com/api/projects/status/54j060q1ukol1wnu/branch/master?svg=true
-.. _AppVeyor: https://ci.appveyor.com/project/joshloyal/forest-hypothesis-tests/history
-
-.. |Coveralls| image:: https://coveralls.io/repos/github/joshloyal/forest-hypothesis-tests/badge.svg?branch=master
-.. _Coveralls: https://coveralls.io/github/joshloyal/forest-hypothesis-tests?branch=master
-
-.. |CircleCI| image:: https://circleci.com/gh/joshloyal/forest-hypothesis-teststree/master.svg?style=svg
-.. _CircleCI: https://circleci.com/gh/joshloyal/forest-hypothesis-tests/tree/master
+|License|_
 
 .. |License| image:: https://img.shields.io/badge/License-MIT-blue.svg
 .. _License: https://opensource.org/licenses/MIT
@@ -22,55 +10,45 @@
 
 Hypothesis Tests for Random Forests
 =============================
-Hypothesis Tests for Random Forests is compatible with scikit-learn_.
-
-Note this requires the development version of the scikit-learn Random Forest!
-
-Documentation / Website: https://joshloyal.github.io/forest-hypothesis-tests
-
+Currently contains an implementation of the random forest confidence intervals from [Mentch2016]_. This package only implements the external estimation method and is by no means computationally efficient.
 
 Example
 -------
 .. code-block:: python
+    import numpy as np
 
-    print("Hello, world!")
+    from sklearn.ensemble import RandomForestRegressor
 
-Installation
-------------
+    from hypoforest import random_forest_error
+
+    rng = np.random.RandomState(123)
+
+    # generate data
+    n_samples = 200
+    X = rng.uniform(0, 20, n_samples).reshape(-1, 1)
+    y = (2 * X + np.sqrt(10) * rng.randn(n_samples, 1)).ravel()
+
+    # fit a random forest
+    forest = RandomForestRegressor(n_estimators=200,
+                                   max_samples=30).fit(X, y)
+
+    # calculate confidence intervals for training points
+    y_pred, y_err = random_forest_error(forest, X, y, X_test=X)
+
 
 Dependencies
 ------------
 Hypothesis Tests for Random Forests requires:
 
-- Python (>= 2.7 or >= 3.4)
+- Python (>= 3.6)
 - NumPy (>= 1.8.2)
 - SciPy (>= 0.13.3)
-- Scikit-learn (>=0.17)
+- Scikit-learn (development)
 
-Additionally, to run examples, you need matplotlib(>=2.0.0).
-
-Installation
-------------
-You need a working installation of numpy and scipy to install Hypothesis Tests for Random Forests. If you have a working installation of numpy and scipy, the easiest way to install forest-hypothesis-tests is using ``pip``::
-
-    pip install -U forest-hypothesis-tests
-
-If you prefer, you can clone the repository and run the setup.py file. Use the following commands to get the copy from GitHub and install all the dependencies::
-
-    git clone https://github.com/joshloyal/forest-hypothesis-tests.git
-    cd forest-hypothesis-tests
-    pip install .
-
-Or install using pip and GitHub::
-
-    pip install -U git+https://github.com/joshloyal/forest-hypothesis-tests.git
-
-
-Testing
--------
-After installation, you can use pytest to run the test suite via setup.py::
-
-    python setup.py test
+This packages requires a RandomForestRegressor that supports subsampling, e.g. `max_samples`.
 
 References:
 -----------
+.. [Mentch2016] L. Mentch and G. Hooker. "Quantifying Uncertainty in
+   "Random Forests via Confidence Intervals and Hypothesis Tests",
+   Journal of Machine Learning Research vol. 17, pp. 1-41, 2016.

@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 from sklearn.ensemble import RandomForestRegressor
 
-from hypoforest.confidence_interval import random_forest_error
+from hypoforest import random_forest_error
 
 n_samples = 200
 
