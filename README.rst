@@ -15,6 +15,7 @@ Currently contains an implementation of the random forest confidence intervals f
 Example
 -------
 .. code-block:: python
+
     import numpy as np
 
     from sklearn.ensemble import RandomForestRegressor
