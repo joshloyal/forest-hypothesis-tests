@@ -7,7 +7,7 @@
 
 .. _scikit-learn: https://github.com/scikit-learn/scikit-learn
 
-.. |ConfidenceImage| image:: https://raw.githubusercontent.com/joshloyal/forest-hypothesis-tests/master/images/confidence_intervals.pdf
+.. |ConfidenceImage| image:: https://raw.githubusercontent.com/joshloyal/forest-hypothesis-tests/master/images/confidence_intervals.png
 
 Hypothesis Tests for Random Forests
 =============================
