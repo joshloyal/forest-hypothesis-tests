@@ -5,12 +5,15 @@
 .. |License| image:: https://img.shields.io/badge/License-MIT-blue.svg
 .. _License: https://opensource.org/licenses/MIT
 
-
 .. _scikit-learn: https://github.com/scikit-learn/scikit-learn
+
+.. |ConfidenceImage| image:: images/confidence_interval.pdf
 
 Hypothesis Tests for Random Forests
 =============================
 Currently contains an implementation of the random forest confidence intervals from [Mentch2016]_. This package only implements the external estimation method and is by no means computationally efficient.
+
+|ConfidenceImage|
 
 Example
 -------
